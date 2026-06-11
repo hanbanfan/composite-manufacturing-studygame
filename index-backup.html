@@ -1,0 +1,681 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Composite Quest Pro</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f7f5ef;
+      color: #222;
+      margin: 0;
+      padding: 20px;
+    }
+
+    header {
+      background: linear-gradient(135deg, #6d28d9, #0891b2);
+      color: white;
+      padding: 24px;
+      border-radius: 18px;
+      margin-bottom: 20px;
+    }
+
+    h1 {
+      margin: 0;
+      font-size: 2.4rem;
+    }
+
+    button {
+      padding: 12px 16px;
+      margin: 6px;
+      border: none;
+      border-radius: 10px;
+      background: #0891b2;
+      color: white;
+      font-weight: bold;
+      cursor: pointer;
+    }
+
+    button:hover {
+      opacity: 0.9;
+    }
+
+    .nav-button {
+      background: #6d28d9;
+    }
+
+    .card {
+      background: white;
+      padding: 24px;
+      border-radius: 16px;
+      margin-top: 20px;
+      box-shadow: 0 8px 20px rgba(0,0,0,0.1);
+    }
+
+    .hidden {
+      display: none;
+    }
+
+    .answer {
+      color: #15803d;
+      font-weight: bold;
+      font-size: 1.2rem;
+    }
+
+    .wrong {
+      color: #b91c1c;
+      font-weight: bold;
+    }
+
+    .study-box {
+      background: #eef2ff;
+      border-left: 6px solid #6d28d9;
+      padding: 16px;
+      border-radius: 12px;
+      margin: 12px 0;
+    }
+
+    .warning {
+      background: #fff7ed;
+      border-left: 6px solid #f97316;
+      padding: 16px;
+      border-radius: 12px;
+      margin: 12px 0;
+    }
+
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+      gap: 16px;
+    }
+
+    select, input {
+      padding: 10px;
+      border-radius: 8px;
+      border: 1px solid #ccc;
+      margin: 6px 0;
+      width: 100%;
+      max-width: 400px;
+    }
+
+    .choice {
+      display: block;
+      width: 100%;
+      text-align: left;
+      background: #e0f2fe;
+      color: #082f49;
+      margin: 8px 0;
+    }
+
+    .correct-choice {
+      background: #dcfce7;
+      color: #14532d;
+    }
+
+    .wrong-choice {
+      background: #fee2e2;
+      color: #7f1d1d;
+    }
+
+    .small {
+      color: #666;
+      font-size: 0.95rem;
+    }
+
+    table {
+      width: 100%;
+      border-collapse: collapse;
+      margin-top: 12px;
+    }
+
+    th, td {
+      border-bottom: 1px solid #ddd;
+      padding: 10px;
+      text-align: left;
+      vertical-align: top;
+    }
+  </style>
+</head>
+<body>
+  <header>
+    <h1>Composite Quest Pro 🧠🛠️</h1>
+    <p>A user-friendly study app for learning composite manufacturing, materials, processes, testing, repair, and exam concepts.</p>
+  </header>
+
+  <button class="nav-button" onclick="showSection('dashboard')">Home</button>
+  <button class="nav-button" onclick="showSection('guides')">Study Guides</button>
+  <button class="nav-button" onclick="showSection('flashcards')">Flashcards</button>
+  <button class="nav-button" onclick="showSection('quiz')">Long Quiz</button>
+  <button class="nav-button" onclick="showSection('solver')">Logic Solver</button>
+  <button class="nav-button" onclick="showSection('calculator')">Calculators</button>
+  <button class="nav-button" onclick="showSection('exam')">Exam Review</button>
+  <button class="nav-button" onclick="showSection('book')">Book References</button>
+
+  <section id="dashboard" class="card">
+    <h2>Home</h2>
+    <div class="study-box">
+      <h3>Best study loop</h3>
+      <ol>
+        <li>Read one study guide section.</li>
+        <li>Do 10 flashcards out loud.</li>
+        <li>Take a quiz.</li>
+        <li>Use the logic solver for one manufacturing scenario.</li>
+        <li>Write one sentence explaining what you learned.</li>
+      </ol>
+    </div>
+
+    <div class="warning">
+      <strong>Academic integrity:</strong> Use this app to study and quiz yourself. Do not copy app text into submitted work if your course does not allow AI-generated content.
+    </div>
+  </section>
+
+  <section id="guides" class="card hidden">
+    <h2>Study Guides</h2>
+
+    <div class="study-box">
+      <h3>1. What is a composite?</h3>
+      <p>A composite is a material made from two or more distinct constituents. The goal is to create a material system with better performance than the individual parts alone.</p>
+      <p><strong>Examples:</strong> reinforced concrete, plywood, fiberglass, carbon fiber epoxy, bone, and adobe brick.</p>
+      <p><strong>Key terms:</strong> constituent, phase, interface, reinforcement, matrix.</p>
+    </div>
+
+    <div class="study-box">
+      <h3>2. Matrix vs. reinforcement</h3>
+      <p><strong>Reinforcement:</strong> Usually fibers, particles, whiskers, or flakes. Fibers carry most of the load and add strength/stiffness.</p>
+      <p><strong>Matrix:</strong> The binder phase. It holds fibers in place, transfers load, protects fibers, and helps stop cracks from spreading.</p>
+      <p><strong>Memory hook:</strong> Fiber = skeleton. Matrix = glue/bodyguard/traffic cop.</p>
+    </div>
+
+    <div class="study-box">
+      <h3>3. Fiber types</h3>
+      <ul>
+        <li><strong>Glass fiber:</strong> lower cost, corrosion resistant, common in boats, tanks, pipes, and sporting goods.</li>
+        <li><strong>Carbon fiber:</strong> high stiffness, high strength, low density, common in aerospace and high-performance parts.</li>
+        <li><strong>Aramid/Kevlar:</strong> light, strong, ductile, and excellent for impact or ballistic resistance.</li>
+        <li><strong>Boron/ceramic fibers:</strong> specialty high-performance or high-temperature applications.</li>
+      </ul>
+    </div>
+
+    <div class="study-box">
+      <h3>4. Matrix materials</h3>
+      <ul>
+        <li><strong>Thermosets:</strong> cure by irreversible chemical reaction. Examples: polyester, vinyl ester, epoxy, phenolic, polyimide.</li>
+        <li><strong>Thermoplastics:</strong> soften with heat and can be formed/reformed. They are often tougher but harder to impregnate because of higher viscosity.</li>
+        <li><strong>Metal matrices:</strong> useful when temperatures are too high for polymers.</li>
+        <li><strong>Ceramic matrices:</strong> useful for very high-temperature applications.</li>
+      </ul>
+    </div>
+
+    <div class="study-box">
+      <h3>5. Manufacturing processes</h3>
+      <ul>
+        <li><strong>Hand layup:</strong> simple, manual, low-volume, good for large parts and prototypes.</li>
+        <li><strong>Spray-up:</strong> chopped fiber and resin sprayed onto a mold, lower fiber control.</li>
+        <li><strong>RTM:</strong> Resin Transfer Molding; closed mold with resin injection.</li>
+        <li><strong>Pultrusion:</strong> long constant cross-section parts.</li>
+        <li><strong>Filament winding:</strong> tubes, tanks, pipes, and pressure vessels.</li>
+        <li><strong>Prepreg/autoclave:</strong> high-quality aerospace-style processing using controlled resin content, heat, and pressure.</li>
+      </ul>
+    </div>
+
+    <div class="study-box">
+      <h3>6. Quality, voids, and porosity</h3>
+      <p>Voids are empty spaces inside the composite. Porosity is the percentage or fraction of total volume that is void space.</p>
+      <p>High void content can reduce strength, stiffness, fatigue life, environmental resistance, and reliability.</p>
+    </div>
+
+    <div class="study-box">
+      <h3>7. Damage and repair</h3>
+      <p>Composite damage can include cracks, delamination, impact damage, fiber breakage, matrix cracking, moisture damage, and bond failure.</p>
+      <p><strong>Repair logic:</strong> detect damage, assess severity, choose repair, restore the load path, inspect the repair.</p>
+    </div>
+  </section>
+
+  <section id="flashcards" class="card hidden">
+    <h2>Flashcards</h2>
+    <p class="small">Say your answer out loud before flipping the card.</p>
+    <p id="flashcardText"></p>
+    <button onclick="flipCard()">Flip Card</button>
+    <button onclick="nextCard()">Next Card</button>
+    <p id="cardCounter" class="small"></p>
+  </section>
+
+  <section id="quiz" class="card hidden">
+    <h2>Long Quiz</h2>
+    <p class="small">This quiz pulls from definitions, fibers, matrices, processes, testing, and repair.</p>
+    <button onclick="startQuiz()">Start / Restart Quiz</button>
+    <div id="quizArea"></div>
+    <p id="quizScore"></p>
+  </section>
+
+  <section id="solver" class="card hidden">
+    <h2>Composite Logic Solver</h2>
+    <p>Choose the application and priority. The app will recommend a material/process direction.</p>
+
+    <label>Application</label>
+    <select id="application">
+      <option value="aerospace">Aerospace lightweight part</option>
+      <option value="automotive">Automotive body panel</option>
+      <option value="chemical">Chemical tank or pipe</option>
+      <option value="marine">Boat hull or marine part</option>
+      <option value="sport">Sporting good</option>
+      <option value="temperature">High-temperature component</option>
+      <option value="tube">Tube or pressure vessel</option>
+      <option value="beam">Long constant cross-section beam</option>
+    </select>
+
+    <label>Top Priority</label>
+    <select id="priority">
+      <option value="strength">High strength-to-weight</option>
+      <option value="cost">Lowest cost</option>
+      <option value="corrosion">Corrosion resistance</option>
+      <option value="impact">Impact resistance</option>
+      <option value="temperature">High temperature resistance</option>
+      <option value="production">Fast/repeatable production</option>
+    </select>
+
+    <button onclick="solveComposite()">Solve</button>
+    <div id="solverResult" class="study-box"></div>
+  </section>
+
+  <section id="calculator" class="card hidden">
+    <h2>Calculators</h2>
+
+    <div class="grid">
+      <div class="study-box">
+        <h3>Density</h3>
+        <label>Mass</label>
+        <input type="number" id="mass">
+        <label>Volume</label>
+        <input type="number" id="volume">
+        <button onclick="calculateDensity()">Calculate</button>
+        <p id="densityResult"></p>
+      </div>
+
+      <div class="study-box">
+        <h3>Fiber Volume Fraction</h3>
+        <label>Fiber Volume</label>
+        <input type="number" id="fiberVolume">
+        <label>Total Composite Volume</label>
+        <input type="number" id="totalVolume">
+        <button onclick="calculateFiberFraction()">Calculate</button>
+        <p id="fiberResult"></p>
+      </div>
+
+      <div class="study-box">
+        <h3>Porosity / Void Volume Ratio</h3>
+        <label>Void Volume</label>
+        <input type="number" id="voidVolume">
+        <label>Total Composite Volume</label>
+        <input type="number" id="voidTotalVolume">
+        <button onclick="calculatePorosity()">Calculate</button>
+        <p id="porosityResult"></p>
+      </div>
+
+      <div class="study-box">
+        <h3>Specific Strength</h3>
+        <label>Strength</label>
+        <input type="number" id="strength">
+        <label>Density</label>
+        <input type="number" id="densityInput">
+        <button onclick="calculateSpecificStrength()">Calculate</button>
+        <p id="specificResult"></p>
+      </div>
+    </div>
+  </section>
+
+  <section id="exam" class="card hidden">
+    <h2>Exam Review</h2>
+    <button onclick="generateExam()">Generate Practice Exam</button>
+    <div id="examOutput"></div>
+  </section>
+
+  <section id="book" class="card hidden">
+    <h2>Book References</h2>
+    <p>Required textbook: A. Brent Strong, <em>Fundamentals of Composites Manufacturing: Materials, Methods, and Applications</em>, 2nd edition.</p>
+
+    <table>
+      <tr>
+        <th>Topic</th>
+        <th>Book area to check</th>
+        <th>Use it for</th>
+      </tr>
+      <tr>
+        <td>Composite basics</td>
+        <td>Chapter 1: Introduction to Composites</td>
+        <td>Definitions, advantages, disadvantages, applications.</td>
+      </tr>
+      <tr>
+        <td>Matrix materials</td>
+        <td>Chapter 2: Composite Matrix Materials</td>
+        <td>Thermosets, thermoplastics, metal matrices, ceramic matrices.</td>
+      </tr>
+      <tr>
+        <td>Reinforcements</td>
+        <td>Chapter 3: Reinforcements</td>
+        <td>Glass, carbon, aramid, boron, ceramic fibers, fabrics, whiskers.</td>
+      </tr>
+      <tr>
+        <td>Mechanical properties</td>
+        <td>Chapter 4: Mechanical Properties of Composites</td>
+        <td>Anisotropy, fiber orientation, environmental effects, testing.</td>
+      </tr>
+      <tr>
+        <td>Manufacturing</td>
+        <td>Chapter 5: Manufacturing Methods</td>
+        <td>Layup, vacuum bagging, autoclave, RTM, pultrusion, filament winding, spray-up, tooling.</td>
+      </tr>
+      <tr>
+        <td>Fabrication and assembly</td>
+        <td>Chapter 6: Fabrication and Assembly</td>
+        <td>Machining, drilling, adhesive bonding, mechanical joining, coating.</td>
+      </tr>
+      <tr>
+        <td>Testing and QA</td>
+        <td>Chapter 7: Testing and Quality Assurance</td>
+        <td>Fiber testing, resin testing, laminate quality, mechanical testing.</td>
+      </tr>
+      <tr>
+        <td>Damage and repair</td>
+        <td>Chapter 8: Damage Control and Repair</td>
+        <td>Damage detection, assessment, repair procedures.</td>
+      </tr>
+      <tr>
+        <td>Applications</td>
+        <td>Chapter 9: Composite Uses</td>
+        <td>Aerospace, automotive, marine, sports, electrical, construction uses.</td>
+      </tr>
+    </table>
+  </section>
+
+  <script>
+    const flashcards = [
+      ["What is a composite?", "A material made from two or more distinct constituents that work together."],
+      ["What is the matrix?", "The binder phase that transfers load, protects fibers, and holds reinforcement in place."],
+      ["What is reinforcement?", "The phase, often fibers, that carries most of the load and adds strength/stiffness."],
+      ["What does PMC stand for?", "Polymer Matrix Composite."],
+      ["What does MMC stand for?", "Metal Matrix Composite."],
+      ["What does CMC stand for?", "Ceramic Matrix Composite."],
+      ["What is anisotropy?", "Properties depend on direction."],
+      ["What is specific strength?", "Strength divided by density."],
+      ["What is fiber volume fraction?", "The percentage or fraction of composite volume occupied by fibers."],
+      ["What is porosity?", "Void volume divided by total composite volume."],
+      ["Why are voids bad?", "They reduce quality, strength, fatigue resistance, and reliability."],
+      ["What is hand layup?", "Manual placement of reinforcement and resin into a mold."],
+      ["What is RTM?", "Resin Transfer Molding; resin injected into a closed mold containing reinforcement."],
+      ["What is pultrusion used for?", "Long parts with constant cross-sections."],
+      ["What is filament winding used for?", "Tubes, tanks, pipes, and pressure vessels."],
+      ["What is prepreg?", "Reinforcement pre-impregnated with resin."],
+      ["What does an autoclave provide?", "Controlled heat and pressure for high-quality curing."],
+      ["What is delamination?", "Separation between layers in a composite."],
+      ["Why is carbon fiber used?", "High stiffness, high strength, and low density."],
+      ["Why is glass fiber used?", "Low cost, corrosion resistance, and wide availability."],
+      ["Why is aramid/Kevlar used?", "Impact resistance, light weight, and high strength."],
+      ["What is a thermoset?", "A polymer that cures irreversibly through chemical crosslinking."],
+      ["What is a thermoplastic?", "A polymer that softens with heat and can be formed."],
+      ["What is wet-out?", "Resin fully contacting and surrounding the reinforcement."],
+      ["What can poor wet-out cause?", "Voids, dry spots, weak bonding, and reduced strength."],
+      ["What is adhesive bonding?", "Joining parts with an adhesive instead of only mechanical fasteners."],
+      ["What is a common drilling risk in composites?", "Delamination, fiber pull-out, and stress concentration."],
+      ["What is quality assurance?", "Verifying the process and part meet requirements."],
+      ["What is damage assessment?", "Finding damage, identifying severity, and deciding repair options."],
+      ["What should safety focus on?", "Dust, fibers, resins, solvents, PPE, ventilation, and disposal."]
+    ];
+
+    const quizQuestions = [
+      {
+        question: "Which phase usually carries most of the load in a fiber-reinforced composite?",
+        choices: ["Matrix", "Reinforcement/fibers", "Void space", "Paint"],
+        answer: "Reinforcement/fibers"
+      },
+      {
+        question: "What does the matrix do?",
+        choices: ["Transfers load and protects fibers", "Only adds color", "Removes fiber direction", "Creates voids"],
+        answer: "Transfers load and protects fibers"
+      },
+      {
+        question: "Which process is best for long constant cross-section parts?",
+        choices: ["Pultrusion", "Filament winding", "Hand sanding", "Painting"],
+        answer: "Pultrusion"
+      },
+      {
+        question: "Which process is best for tubes and pressure vessels?",
+        choices: ["Filament winding", "Spray painting", "Cutting only", "Open book exam"],
+        answer: "Filament winding"
+      },
+      {
+        question: "RTM stands for...",
+        choices: ["Resin Transfer Molding", "Random Thermal Matrix", "Repair Test Method", "Resin Tape Milling"],
+        answer: "Resin Transfer Molding"
+      },
+      {
+        question: "What is anisotropy?",
+        choices: ["Properties depend on direction", "Properties are the same in all directions", "No matrix exists", "Only metals can be used"],
+        answer: "Properties depend on direction"
+      },
+      {
+        question: "Why are voids harmful?",
+        choices: ["They can reduce strength and quality", "They always improve strength", "They replace fibers", "They make curing unnecessary"],
+        answer: "They can reduce strength and quality"
+      },
+      {
+        question: "Which fiber is known for high stiffness and low density?",
+        choices: ["Carbon fiber", "Paper", "Lead fiber", "Pure resin"],
+        answer: "Carbon fiber"
+      },
+      {
+        question: "Which fiber is known for lower cost and corrosion resistance?",
+        choices: ["Glass fiber", "Gold fiber", "Boron only", "Copper wire"],
+        answer: "Glass fiber"
+      },
+      {
+        question: "Which fiber is known for impact resistance?",
+        choices: ["Aramid/Kevlar", "Chalk", "Paint", "Polyester only"],
+        answer: "Aramid/Kevlar"
+      },
+      {
+        question: "Thermosets cure by...",
+        choices: ["Irreversible chemical reaction", "Melting repeatedly", "Turning into copper", "Evaporating all fibers"],
+        answer: "Irreversible chemical reaction"
+      },
+      {
+        question: "Thermoplastics generally...",
+        choices: ["Soften with heat", "Can never be reheated", "Are always ceramic", "Contain no polymer chains"],
+        answer: "Soften with heat"
+      },
+      {
+        question: "Prepreg means...",
+        choices: ["Reinforcement already impregnated with resin", "A finished metal part", "A type of void", "A broken laminate"],
+        answer: "Reinforcement already impregnated with resin"
+      },
+      {
+        question: "Autoclaves provide...",
+        choices: ["Controlled heat and pressure", "Only room temperature storage", "No curing", "Only cutting"],
+        answer: "Controlled heat and pressure"
+      },
+      {
+        question: "Delamination is...",
+        choices: ["Separation between layers", "A stronger matrix", "A type of fiber", "A perfect cure"],
+        answer: "Separation between layers"
+      }
+    ];
+
+    let currentCard = 0;
+    let showingAnswer = false;
+    let currentQuiz = 0;
+    let quizScore = 0;
+
+    function showSection(sectionId) {
+      document.querySelectorAll("section").forEach(section => {
+        section.classList.add("hidden");
+      });
+      document.getElementById(sectionId).classList.remove("hidden");
+    }
+
+    function displayCard() {
+      showingAnswer = false;
+      document.getElementById("flashcardText").textContent = flashcards[currentCard][0];
+      document.getElementById("cardCounter").textContent = "Card " + (currentCard + 1) + " of " + flashcards.length;
+    }
+
+    function flipCard() {
+      if (showingAnswer) {
+        document.getElementById("flashcardText").textContent = flashcards[currentCard][0];
+        showingAnswer = false;
+      } else {
+        document.getElementById("flashcardText").innerHTML = "<span class='answer'>" + flashcards[currentCard][1] + "</span>";
+        showingAnswer = true;
+      }
+    }
+
+    function nextCard() {
+      currentCard++;
+      if (currentCard >= flashcards.length) {
+        currentCard = 0;
+      }
+      displayCard();
+    }
+
+    function startQuiz() {
+      currentQuiz = 0;
+      quizScore = 0;
+      showQuestion();
+    }
+
+    function showQuestion() {
+      const area = document.getElementById("quizArea");
+
+      if (currentQuiz >= quizQuestions.length) {
+        area.innerHTML = "<h3>Quiz complete!</h3><p>You scored " + quizScore + " out of " + quizQuestions.length + ".</p>";
+        document.getElementById("quizScore").textContent = "";
+        return;
+      }
+
+      const q = quizQuestions[currentQuiz];
+
+      let html = "<h3>Question " + (currentQuiz + 1) + " of " + quizQuestions.length + "</h3>";
+      html += "<p><strong>" + q.question + "</strong></p>";
+
+      q.choices.forEach(choice => {
+        html += "<button class='choice' onclick='checkQuizAnswer(\"" + choice.replace(/"/g, "&quot;") + "\")'>" + choice + "</button>";
+      });
+
+      area.innerHTML = html;
+      document.getElementById("quizScore").textContent = "Current score: " + quizScore;
+    }
+
+    function checkQuizAnswer(choice) {
+      const q = quizQuestions[currentQuiz];
+      const area = document.getElementById("quizArea");
+
+      if (choice === q.answer) {
+        quizScore++;
+        area.innerHTML += "<p class='answer'>Correct.</p>";
+      } else {
+        area.innerHTML += "<p class='wrong'>Not quite. Correct answer: " + q.answer + "</p>";
+      }
+
+      currentQuiz++;
+
+      setTimeout(showQuestion, 900);
+    }
+
+    function solveComposite() {
+      const app = document.getElementById("application").value;
+      const priority = document.getElementById("priority").value;
+      let result = "";
+
+      if (app === "aerospace" || priority === "strength") {
+        result = "Recommendation: carbon fiber with epoxy matrix. Consider prepreg layup, vacuum bagging, or autoclave processing. Reason: high strength-to-weight and stiffness-to-weight.";
+      } else if (app === "chemical" || priority === "corrosion") {
+        result = "Recommendation: glass fiber with vinyl ester or corrosion-resistant epoxy. Consider RTM, hand layup, or filament winding depending on shape. Reason: corrosion resistance matters most.";
+      } else if (app === "tube") {
+        result = "Recommendation: filament winding. Reason: tubes, pipes, tanks, and pressure vessels benefit from continuous fibers wrapped around a mandrel.";
+      } else if (app === "beam") {
+        result = "Recommendation: pultrusion. Reason: pultrusion is ideal for long parts with constant cross-sections.";
+      } else if (priority === "impact") {
+        result = "Recommendation: aramid/Kevlar or hybrid reinforcement with toughened matrix. Reason: aramid is strong for impact resistance.";
+      } else if (priority === "temperature" || app === "temperature") {
+        result = "Recommendation: consider metal matrix or ceramic matrix composite. Reason: polymer matrices have temperature limits.";
+      } else if (priority === "cost") {
+        result = "Recommendation: glass fiber with polyester or vinyl ester resin. Consider hand layup or spray-up. Reason: lower cost and common manufacturing routes.";
+      } else {
+        result = "Recommendation: polymer matrix composite with process chosen by shape and production volume.";
+      }
+
+      document.getElementById("solverResult").textContent = result;
+    }
+
+    function calculateDensity() {
+      const mass = Number(document.getElementById("mass").value);
+      const volume = Number(document.getElementById("volume").value);
+      if (volume === 0) {
+        document.getElementById("densityResult").textContent = "Volume cannot be zero.";
+        return;
+      }
+      document.getElementById("densityResult").textContent = "Density = " + (mass / volume).toFixed(4);
+    }
+
+    function calculateFiberFraction() {
+      const fiber = Number(document.getElementById("fiberVolume").value);
+      const total = Number(document.getElementById("totalVolume").value);
+      if (total === 0) {
+        document.getElementById("fiberResult").textContent = "Total volume cannot be zero.";
+        return;
+      }
+      document.getElementById("fiberResult").textContent = "Fiber volume fraction = " + ((fiber / total) * 100).toFixed(2) + "%";
+    }
+
+    function calculatePorosity() {
+      const voidVolume = Number(document.getElementById("voidVolume").value);
+      const total = Number(document.getElementById("voidTotalVolume").value);
+      if (total === 0) {
+        document.getElementById("porosityResult").textContent = "Total volume cannot be zero.";
+        return;
+      }
+      document.getElementById("porosityResult").textContent = "Porosity = " + ((voidVolume / total) * 100).toFixed(2) + "%";
+    }
+
+    function calculateSpecificStrength() {
+      const strength = Number(document.getElementById("strength").value);
+      const density = Number(document.getElementById("densityInput").value);
+      if (density === 0) {
+        document.getElementById("specificResult").textContent = "Density cannot be zero.";
+        return;
+      }
+      document.getElementById("specificResult").textContent = "Specific strength = " + (strength / density).toFixed(4);
+    }
+
+    function generateExam() {
+      const prompts = [
+        "Define composite material and explain the roles of matrix and reinforcement.",
+        "Compare glass fiber, carbon fiber, and aramid fiber.",
+        "Explain why fiber orientation matters.",
+        "Compare thermosets and thermoplastics.",
+        "Explain why voids and porosity reduce composite quality.",
+        "Choose a manufacturing process for a pressure vessel and justify it.",
+        "Choose a manufacturing process for a long constant cross-section part and justify it.",
+        "Explain the purpose of vacuum bagging and autoclave curing.",
+        "Describe common composite damage types.",
+        "Describe a basic damage assessment and repair workflow.",
+        "Explain why composites are used in aerospace.",
+        "Explain the cost tradeoffs of composites.",
+        "Describe safety concerns in composites manufacturing.",
+        "Explain what quality assurance checks are important for composites.",
+        "Use book references to identify where you would study fibers, matrices, manufacturing, and repair."
+      ];
+
+      let html = "<h3>Practice Exam Prompts</h3><ol>";
+      prompts.forEach(prompt => {
+        html += "<li>" + prompt + "</li>";
+      });
+      html += "</ol>";
+
+      document.getElementById("examOutput").innerHTML = html;
+    }
+
+    displayCard();
+  </script>
+</body>
+</html>
